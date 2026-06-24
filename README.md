@@ -1,0 +1,137 @@
+# VIAMEDIA ASSESSMENT
+
+## Product Hub
+
+A product catalog built with Vite and the DummyJSON API. Built as part of a frontend developer assessment.
+
+**Live Demo:** `[I'LL REPLACE THIS WITH THE URL IN THE FUTURE]`
+
+---
+
+## What it does
+
+- Browse a paginated list of products with search and category filtering.
+- View full product detail pages
+- Log in to get access to create, edit or delete products.
+- Logged-in user info displays in the header.
+- Fully responsive on mobile and desktop
+
+---
+
+| Build tool | Vite |
+| Framework | React |
+| Language | Typescript |
+| Styling | Tailwind CSS |
+| State Management | Redux + Redux-Saga |
+| Routing | React Router |
+| API Client | Axios |
+| API | DummyJSON |
+
+---
+
+## How to start locally
+
+**Requirements:** Node v24.18.0 _(LTS at time of development)_
+
+### Node Version Manager Setup (nvm-windows)
+
+If you are using [nvm-windows](https://github.com/coreybutler/nvm-windows) to manage your Node versions:
+
+```bash
+nvm install 24.18.0
+nvm use 24.18.0
+node -v # Should show the version: v24.18.0
+```
+
+### Install and Run
+
+```bash
+git clone https://github.com/SeegersJT/viamedia-assessment.git # (Something like that - I'll update this once I commit)
+cd viamedia-assessment
+npm install
+cp .env.example .env
+npm run dev  # Pray it starts
+```
+
+Then open `http://localhost:5173`
+
+### Environment Variables
+
+```env
+VITE_API_BASE_URL=https://dummyjson.com
+```
+
+**_I'll add more as I go..._**
+
+### Test Credentials
+
+```
+username: emilys
+password: emilyspass
+```
+
+**_As per the DummyJSON Documentation_**
+
+---
+
+## Project Structure
+
+```
+src/
+\ assets/
+\ components/
+\ containers/
+\ hooks/
+\ lib/
+\ redux/
+\ routes/
+\ App.tsx
+\ main.tsx
+\ styles.css
+```
+
+**_I'm bad at creating those pipes to show folder depth..._**
+
+---
+
+## Technical Decisions
+
+**Redux + Reduc-Saga**
+The spec asked for Auth, CRUD, pagination, search and category filtering.
+All of which produce async side effects that rely on each other.
+For that reason, I'm going to use Sagas to have a clean place to handle logic without having to cross over components and scatter all over the place.
+Now I know for a smaller app I'd use something lighter, but this is a skills showcase, so I'm using what I'd use in a real production codebase.
+
+**ESLint + Prettier for code quality**
+Added ESLint and Prettier to the project from the start. Beyond just keeping the code clean, the bigger reason is consistancy.
+By committing a `.vscode` folder with workspace settings and recommended extentions list, anyone who clones the repo gets the same formatting rules and linting behaviour automatically enforced in their editor.
+In a team environment this pays for itself immediately since the style is forced at the project level, not left up to individual developer setups.
+Also I'm lazy and don't want to manually lint, so I save and it lints for me.
+
+**Shadcn/ui theme builder for styling**
+Rather than writing CSS Variables from scratch, I used the [shadcn/ui themes builder](https://ui.shadcn.com/themes) to create the base design.
+I based the color palette loosely of of the ViaMedia theme.
+This significantly speeds up visual setup for me.
+
+**Axios over fetch**
+Interceptors are going to make it easier to attach the Authorization header globally and handle 401 response (auto-logout) in a central place instead of in every request.
+
+_I'll add more decisions as I progress_
+
+## What I'd improve on with more time
+
+- Add unit tests for the sagas and maybe key components
+- Add skeleton loaders instead of just a spinner.
+- Persist the search / filter / page state in URL so links are shareable
+
+---
+
+## Notes / Assumptions
+
+- DummyJSON doesn't persist POST / PUT / DELETE changes, the UI reflects mutations locally as documented
+- The "Add Product" button is hidden entirely when logged out, rather than showing it disabled
+- Categories are fetched once mount and cached in Redux
+
+_I'll add more notes as I progress_
+
+**_phew_**

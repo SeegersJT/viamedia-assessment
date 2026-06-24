@@ -1,0 +1,34 @@
+{
+	"name": "viamedia - assessment",
+	"version": "0.0.1",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc -b && vite build",
+		"lint": "eslint . --fix --format pretty --max-warnings 0 && echo Lint passed",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"@tailwindcss/vite": "^4.2.1",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
+		"react-redux": "^9.3.0",
+		"react-router-dom": "^6.17.0",
+		"redux": "^5.0.1",
+		"redux-saga": "^1.5.0",
+		"tailwind-merge": "^3.5.0",
+		"tailwindcss": "^4.2.1",
+		"tw-animate-css": "^1.3.4"
+	},
+	"devDependencies": {
+		"@types/react": "^19.2.17",
+		"@types/react-dom": "^19.2.3",
+		"@vitejs/plugin-react": "^6.0.3",
+		"eslint": "^8.48.0",
+		"eslint-config-prettier": "^9.0.0",
+		"eslint-plugin-react": "^7.33.2",
+		"prettier": "^3.0.0",
+		"typescript": "^5.2.2",
+		"vite": "^8.1.0"
+	}
+}
