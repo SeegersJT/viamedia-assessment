@@ -4,7 +4,7 @@
 
 A product catalog built with Vite and the DummyJSON API. Built as part of a frontend developer assessment.
 
-**Version:** `0.2.0`
+**Version:** `0.2.1`
 **Live Demo:** `[I'LL REPLACE THIS WITH THE URL IN THE FUTURE]`
 
 ---
