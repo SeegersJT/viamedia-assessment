@@ -3,15 +3,17 @@ import ProductSkeleton from '@/components/root/dashboard/product/ProductSkeleton
 import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { useAppSelector } from '@/hooks/useAppSelector'
 import { requestProductById } from '@/redux/actions/Product.action'
+import type { RootState } from '@/redux/types/Root.types'
 import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 function ProductContainer() {
 	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
+
 	const { context } = useParams<{ context: string }>()
 
-	const { productById, productByIdLoading } = useAppSelector(state => state.product)
+	const { productById, productByIdLoading } = useAppSelector((state: RootState) => state.product)
 
 	const finalPrice = productById
 		? productById.price * (1 - productById.discountPercentage / 100)

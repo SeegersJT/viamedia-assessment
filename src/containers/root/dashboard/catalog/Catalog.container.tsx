@@ -11,13 +11,14 @@ import { DEFAULT_LIMIT, DEFAULT_PAGE, type PaginationState } from './Catalog.hel
 import { Utils } from '@/utils/Utils'
 import { useAppDebounce } from '@/hooks/useAppDebounce'
 import { useNavigate } from 'react-router-dom'
+import type { RootState } from '@/redux/types/Root.types'
 
 function CatalogContainer() {
 	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
 
 	const { productData, categoryData, totalProducts, productDataLoading, categoryDataLoading } =
-		useAppSelector(state => state.product)
+		useAppSelector((state: RootState) => state.product)
 
 	const [pagination, setPagination] = useState<PaginationState>({
 		page: DEFAULT_PAGE,

@@ -1,7 +1,8 @@
 import { all } from 'redux-saga/effects'
-import { productSaga } from './Product.saga'
+import { authSaga } from './Auth.saga'
 import { notificationSaga } from './Notification.saga'
+import { productSaga } from './Product.saga'
 
 export function* RootSaga() {
-	yield all([notificationSaga(), productSaga()])
+	yield all([authSaga(), notificationSaga(), productSaga()])
 }

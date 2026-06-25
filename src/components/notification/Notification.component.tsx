@@ -4,10 +4,11 @@ import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { removeSystemNotification } from '@/redux/actions/Notification.action'
 import { toast } from 'sonner'
 import { Toaster } from '../ui/sonner'
+import type { RootState } from '@/redux/types/Root.types'
 
 function Notification() {
 	const dispatch = useAppDispatch()
-	const { notifications } = useAppSelector(state => state.notification)
+	const { notifications } = useAppSelector((state: RootState) => state.notification)
 
 	useEffect(() => {
 		notifications.forEach(notification => {

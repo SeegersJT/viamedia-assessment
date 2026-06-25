@@ -39,7 +39,10 @@ function Dashboard({
 								Browse catalog
 								<ArrowRight className="h-4 w-4" />
 							</button>
-							<button onClick={() => {}} className="btn-outline-pop text-base">
+							<button
+								onClick={() => onGoToNavigateClick('/dashboard/login')}
+								className="btn-outline-pop text-base"
+							>
 								Sign in
 							</button>
 						</div>

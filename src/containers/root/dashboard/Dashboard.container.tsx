@@ -2,6 +2,7 @@ import Dashboard from '@/components/root/dashboard/Dashboard.component'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { useAppSelector } from '@/hooks/useAppSelector'
 import { requestProductData } from '@/redux/actions/Product.action'
+import type { RootState } from '@/redux/types/Root.types'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -10,7 +11,7 @@ function DashboardContainer() {
 	const navigate = useNavigate()
 
 	const { productData, totalProducts, productDataLoading } = useAppSelector(
-		state => state.product
+		(state: RootState) => state.product
 	)
 
 	const handleOnGoToNavigateClick = (path: string) => {
