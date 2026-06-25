@@ -78,7 +78,9 @@
 	background: var(--background);
 	border: 1px solid var(--foreground);
 	border-radius: var(--radius);
-	transition: transform 150ms ease, box-shadow 150ms ease;
+	transition:
+		transform 150ms ease,
+		box-shadow 150ms ease;
 
 	&:hover {
 		transform: translate(-3px, -3px);
@@ -113,12 +115,14 @@
 	gap: 0.5rem;
 	background: var(--primary);
 	color: var(--primary-foreground);
-	border: 2px solid var(--foreground);
+	border: 1px solid var(--foreground);
 	border-radius: var(--radius);
 	padding: 0.6rem 1.1rem;
 	font-weight: 700;
 	box-shadow: var(--shadow-pop-sm);
-	transition: transform 120ms ease, box-shadow 120ms ease;
+	transition:
+		transform 120ms ease,
+		box-shadow 120ms ease;
 
 	&:hover {
 		transform: translate(-2px, -2px);
@@ -146,11 +150,13 @@
 	gap: 0.5rem;
 	background: var(--background);
 	color: var(--foreground);
-	border: 2px solid var(--foreground);
+	border: 1px solid var(--foreground);
 	border-radius: var(--radius);
 	padding: 0.6rem 1.1rem;
 	font-weight: 700;
-	transition: background 120ms ease, color 120ms ease;
+	transition:
+		background 120ms ease,
+		color 120ms ease;
 
 	&:hover {
 		background: var(--primary);

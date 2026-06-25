@@ -1,20 +1,20 @@
 import type { ProductItem } from '@/redux/types/Product.type'
-import { Link } from 'react-router-dom'
 
 interface HeroTileProps {
 	product?: ProductItem
+	onGoToNavigateClick: (path: string) => void
 }
 
-function HeroTile({ product }: HeroTileProps) {
+function HeroTile({ product, onGoToNavigateClick }: HeroTileProps) {
 	if (!product) {
 		return (
 			<div className="aspect-square animate-pulse rounded-md border-1 border-foreground bg-muted" />
 		)
 	}
 	return (
-		<Link
-			to="/products/$id"
-			className="group block overflow-hidden rounded-md border-1 border-foreground bg-background"
+		<button
+			onClick={() => onGoToNavigateClick(`/dashboard/product/${product.id}`)}
+			className="group block overflow-hidden rounded-md border-1 border-foreground bg-background hover:cursor-pointer"
 		>
 			<div className="aspect-square overflow-hidden bg-muted">
 				<img
@@ -27,10 +27,10 @@ function HeroTile({ product }: HeroTileProps) {
 			<div className="flex items-center justify-between gap-2 px-2 py-1.5">
 				<span className="truncate text-xs font-bold">{product.title}</span>
 				<span className="font-display text-xs font-bold text-primary">
-					${product.price.toFixed(0)}
+					R{product.price.toFixed(0)}
 				</span>
 			</div>
-		</Link>
+		</button>
 	)
 }
 

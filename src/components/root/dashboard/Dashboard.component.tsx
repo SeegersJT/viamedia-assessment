@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import HeroTile from '@/components/hero-tile/HeroTile.component'
 import { DashboardFeatures, DashboardStatistics } from './Dashboard.helper'
 import { ArrowRight, Search } from 'lucide-react'
@@ -9,14 +8,14 @@ interface DashboardProps {
 	productData: ProductItem[]
 	totalProducts: number
 	productDataLoading: boolean
-	onBrowseCatalogClick: () => void
+	onGoToNavigateClick: (path: string) => void
 }
 
 function Dashboard({
 	productData,
 	totalProducts,
 	productDataLoading,
-	onBrowseCatalogClick,
+	onGoToNavigateClick,
 }: DashboardProps) {
 	return (
 		<div>
@@ -33,7 +32,10 @@ function Dashboard({
 							sheet for every product. Sign in to add, edit, and delete.
 						</p>
 						<div className="mt-7 flex flex-wrap gap-3">
-							<button onClick={onBrowseCatalogClick} className="btn-pop text-base">
+							<button
+								onClick={() => onGoToNavigateClick('/dashboard/catalog')}
+								className="btn-pop text-base"
+							>
 								Browse catalog
 								<ArrowRight className="h-4 w-4" />
 							</button>
@@ -76,6 +78,7 @@ function Dashboard({
 											<HeroTile
 												key={index}
 												product={product as ProductItem | undefined}
+												onGoToNavigateClick={onGoToNavigateClick}
 											/>
 										))}
 							</div>
@@ -115,13 +118,33 @@ function Dashboard({
 							Open the catalog and start exploring. No signup required to browse.
 						</p>
 					</div>
-					<Link
-						to="/catalog"
-						className="inline-flex items-center gap-2 rounded-md border-1 border-foreground bg-background px-5 py-3 font-display text-base font-bold text-foreground shadow-[4px_4px_0_0_var(--foreground)] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_0_var(--foreground)] transition-all"
+					<button
+						onClick={() => onGoToNavigateClick('/dashboard/catalog')}
+						className="
+							inline-flex
+							items-center
+							gap-2
+							rounded-md
+							border-1
+							border-foreground
+							bg-background
+							px-5
+							py-3
+							font-display
+							text-base
+							font-bold
+							text-foreground
+							shadow-[4px_4px_0_0_var(--foreground)]
+							hover:-translate-x-[2px]
+							hover:-translate-y-[2px]
+							hover:shadow-[6px_6px_0_0_var(--foreground)]
+							hover:cursor-pointer
+							transition-all
+						"
 					>
 						Open the catalog
 						<ArrowRight className="h-4 w-4" />
-					</Link>
+					</button>
 				</div>
 			</section>
 		</div>

@@ -4,7 +4,7 @@
 
 A product catalog built with Vite and the DummyJSON API. Built as part of a frontend developer assessment.
 
-**Version:** `0.2.1`
+**Version:** `0.3.0`
 **Live Demo:** `[I'LL REPLACE THIS WITH THE URL IN THE FUTURE]`
 
 ---
@@ -16,6 +16,7 @@ A product catalog built with Vite and the DummyJSON API. Built as part of a fron
 - Log in to get access to create, edit or delete products.
 - Logged-in user info displays in the header.
 - Fully responsive on mobile and desktop
+- View full product detail pages with image, pricing, specs, and stock status
 
 ---
 
@@ -139,6 +140,7 @@ _I'll add more decisions as I progress_
 
 - Product retrieval and display on the catalog page is the primary focus so far. Pagination and search are wired up and working.
 - Category filtering is partially in place and being refined.
+- Product detail page is complete. Selecting a product from the catalog navigates to a dedicated page showing the full product info including image, rating, pricing, discount, stock, and specifications, etc.
 - Protected routes and the login screen are the next major milestone.
 
 ---

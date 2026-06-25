@@ -4,8 +4,9 @@ import { Star } from 'lucide-react'
 interface ProductCardProps {
 	product: ProductItem
 	canManage: boolean
+	onGoToNavigateClick: (path: string) => void
 }
-function ProductCard({ product, canManage }: ProductCardProps) {
+function ProductCard({ product, canManage, onGoToNavigateClick }: ProductCardProps) {
 	return (
 		<div className="card-pop group relative flex flex-col overflow-hidden">
 			{canManage && (
@@ -14,7 +15,10 @@ function ProductCard({ product, canManage }: ProductCardProps) {
 				</div>
 			)}
 
-			<button onClick={() => {}} className="flex flex-1 flex-col hover:cursor-pointer">
+			<button
+				onClick={() => onGoToNavigateClick(`/dashboard/product/${product.id}`)}
+				className="flex flex-1 flex-col hover:cursor-pointer"
+			>
 				<div className="relative aspect-square w-full overflow-hidden border-b-1 border-foreground bg-muted">
 					<img
 						src={product.thumbnail}
@@ -39,7 +43,7 @@ function ProductCard({ product, canManage }: ProductCardProps) {
 								R{product.price.toFixed(2)}
 							</p>
 						</div>
-						<div className="flex items-center gap-1 rounded-md border-2 border-foreground px-2 py-1 text-sm font-bold">
+						<div className="flex items-center gap-1 rounded-md border-1 border-foreground px-2 py-1 text-sm font-bold">
 							<Star className="h-3.5 w-3.5 fill-primary text-primary" />
 							{product.rating.toFixed(1)}
 						</div>

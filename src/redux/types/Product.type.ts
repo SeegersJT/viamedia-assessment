@@ -23,6 +23,10 @@ export interface ProductQueryParams {
 
 export interface ProductState {
 	productData: ProductItem[]
+	categoryData: string[]
+	productById: ProductItem
 	totalProducts: number
 	productDataLoading: boolean
+	categoryDataLoading: boolean
+	productByIdLoading: boolean
 }

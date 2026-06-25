@@ -48,7 +48,7 @@ function MultiSelect<T extends string>({
 				onClick={() => setOpen(v => !v)}
 				aria-expanded={open}
 				aria-haspopup="listbox"
-				className="flex h-full w-full items-center justify-between gap-2 rounded-lg border-1 border-foreground bg-background px-4 py-3 text-sm font-bold shadow-[3px_3px_0_0_var(--primary)] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[4px_4px_0_0_var(--primary)] sm:w-64"
+				className="flex h-full w-full items-center justify-between gap-2 rounded-lg border-1 border-foreground bg-background px-4 py-3 text-sm font-bold shadow-[3px_3px_0_0_var(--primary)] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[4px_4px_0_0_var(--primary)] sm:w-64 hover:cursor-pointer"
 			>
 				<span className="flex items-center gap-2">
 					<SlidersHorizontal className="h-4 w-4" />
@@ -72,7 +72,7 @@ function MultiSelect<T extends string>({
 						<button
 							onClick={onClear}
 							disabled={selected.length === 0}
-							className="text-xs font-bold underline underline-offset-4 disabled:opacity-40"
+							className="text-xs font-bold underline underline-offset-4 disabled:opacity-40 hover:cursor-pointer"
 						>
 							Clear
 						</button>
@@ -92,7 +92,7 @@ function MultiSelect<T extends string>({
 											role="option"
 											aria-selected={isOn}
 											onClick={() => onToggle(item)}
-											className={`flex w-full items-center justify-between gap-2 rounded-md px-3 py-2 text-left text-sm font-medium hover:bg-muted ${
+											className={`flex w-full items-center justify-between gap-2 rounded-md px-3 py-2 text-left text-sm font-medium hover:bg-muted hover:cursor-pointer ${
 												isOn ? 'bg-muted' : ''
 											}`}
 										>

@@ -13,8 +13,8 @@ function DashboardContainer() {
 		state => state.product
 	)
 
-	const handleOnBrowseCatalogClick = () => {
-		navigate('/dashboard/catalog')
+	const handleOnGoToNavigateClick = (path: string) => {
+		navigate(path)
 	}
 
 	useEffect(() => {
@@ -27,7 +27,7 @@ function DashboardContainer() {
 				productData={productData}
 				totalProducts={totalProducts}
 				productDataLoading={productDataLoading}
-				onBrowseCatalogClick={handleOnBrowseCatalogClick}
+				onGoToNavigateClick={handleOnGoToNavigateClick}
 			/>
 		</>
 	)

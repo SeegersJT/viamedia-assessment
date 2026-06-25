@@ -8,20 +8,32 @@ import { Search, X } from 'lucide-react'
 
 interface CatalogProps {
 	productData: ProductItem[]
-	productDataLoading: boolean
+	categoryData: string[]
 	pagination: { page: number; limit: number; totalPages: number }
 	search: string
+	selectedCategories: string[]
+	productDataLoading: boolean
+	categoryDataLoading: boolean
 	onPageChange: (page: number) => void
 	onSearchChange: (value: string) => void
+	onCategoryToggle: (category: string) => void
+	onClearCategories: () => void
+	onGoToNavigateClick: (path: string) => void
 }
 
 function Catalog({
 	productData,
-	productDataLoading,
+	categoryData,
 	pagination,
 	search,
+	selectedCategories,
+	productDataLoading,
+	categoryDataLoading,
 	onPageChange,
 	onSearchChange,
+	onCategoryToggle,
+	onClearCategories,
+	onGoToNavigateClick,
 }: CatalogProps) {
 	const hasResults = productData && productData.length > 0
 
@@ -56,7 +68,13 @@ function Catalog({
 							</button>
 						)}
 					</div>
-					<MultiSelect all={[]} selected={[]} onToggle={() => {}} onClear={() => {}} />
+					<MultiSelect
+						all={categoryData}
+						selected={selectedCategories}
+						onToggle={onCategoryToggle}
+						onClear={onClearCategories}
+						isLoading={categoryDataLoading}
+					/>
 				</div>
 			</section>
 
@@ -83,8 +101,13 @@ function Catalog({
 				<Nothing query={search} />
 			) : (
 				<div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-					{productData.map(p => (
-						<ProductCard key={p.id} product={p} canManage={false} />
+					{productData.map(product => (
+						<ProductCard
+							key={product.id}
+							product={product}
+							canManage={false}
+							onGoToNavigateClick={onGoToNavigateClick}
+						/>
 					))}
 				</div>
 			)}
