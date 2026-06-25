@@ -5,6 +5,7 @@ import { requestProductData } from '@/redux/actions/Product.action'
 import { useCallback, useEffect, useState } from 'react'
 import { DEFAULT_LIMIT, DEFAULT_PAGE, type PaginationState } from './Catalog.helper'
 import { Utils } from '@/utils/Utils'
+import { useAppDebounce } from '@/hooks/useAppDebounce'
 
 function CatalogContainer() {
 	const dispatch = useAppDispatch()
@@ -19,6 +20,12 @@ function CatalogContainer() {
 	})
 	const [search, setSearch] = useState('')
 
+	const debouncedSearch = useAppDebounce(search, 400)
+
+	useEffect(() => {
+		setPagination(prev => ({ ...prev, page: DEFAULT_PAGE }))
+	}, [debouncedSearch])
+
 	const totalPages = Utils.roundUp(totalProducts / pagination.limit)
 
 	const fetchProducts = useCallback(() => {
@@ -26,10 +33,10 @@ function CatalogContainer() {
 			requestProductData({
 				limit: pagination.limit,
 				skip: (pagination.page - 1) * pagination.limit,
-				search,
+				search: debouncedSearch,
 			})
 		)
-	}, [dispatch, pagination, search])
+	}, [dispatch, pagination, debouncedSearch])
 
 	useEffect(() => {
 		fetchProducts()
@@ -41,7 +48,6 @@ function CatalogContainer() {
 
 	const handleSearchChange = (value: string) => {
 		setSearch(value)
-		setPagination(prev => ({ ...prev, page: DEFAULT_PAGE }))
 	}
 
 	return (
