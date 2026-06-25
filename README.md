@@ -18,14 +18,15 @@ A product catalog built with Vite and the DummyJSON API. Built as part of a fron
 
 ---
 
-| Build tool | Vite |
-| Framework | React |
-| Language | Typescript |
-| Styling | Tailwind CSS |
+| Build tool       | Vite               |
+| ---------------- | ------------------ |
+| Framework        | React              |
+| Language         | Typescript         |
+| Styling          | Tailwind CSS       |
 | State Management | Redux + Redux-Saga |
-| Routing | React Router |
-| API Client | Axios |
-| API | DummyJSON |
+| Routing          | React Router       |
+| API Client       | Axios              |
+| API              | DummyJSON          |
 
 ---
 
@@ -96,33 +97,55 @@ src/
 
 ## Technical Decisions
 
-**Redux + Reduc-Saga**
+**Redux + Redux-Saga**
 The spec asked for Auth, CRUD, pagination, search and category filtering.
 All of which produce async side effects that rely on each other.
-For that reason, I'm going to use Sagas to have a clean place to handle logic without having to cross over components and scatter all over the place.
+For that reason, I'm using Sagas to have a clean place to handle logic without having to cross over components and scatter all over the place.
 Now I know for a smaller app I'd use something lighter, but this is a skills showcase, so I'm using what I'd use in a real production codebase.
 
+**Global Notification System**
+Built a notification system from the ground up with its own reducer, actions, and saga.
+Any component or saga anywhere in the app can dispatch a notification without needing to know anything about the UI layer.
+The `Notification` component sits at the root level and listens to the Redux store, so toast messages are available application-wide with a single dispatch call.
+
+**Generic Axios Structure**
+Rather than writing one-off API calls per feature, I built a generic Axios layer to handle all requests centrally.
+This gives me a single place to attach headers, handle errors, and manage response shapes, keeping the saga and component code clean and free of repetitive boilerplate.
+
 **ESLint + Prettier for code quality**
-Added ESLint and Prettier to the project from the start. Beyond just keeping the code clean, the bigger reason is consistancy.
-By committing a `.vscode` folder with workspace settings and recommended extentions list, anyone who clones the repo gets the same formatting rules and linting behaviour automatically enforced in their editor.
+Added ESLint and Prettier to the project from the start. Beyond just keeping the code clean, the bigger reason is consistency.
+By committing a `.vscode` folder with workspace settings and recommended extensions list, anyone who clones the repo gets the same formatting rules and linting behaviour automatically enforced in their editor.
 In a team environment this pays for itself immediately since the style is forced at the project level, not left up to individual developer setups.
 Also I'm lazy and don't want to manually lint, so I save and it lints for me.
 
 **Shadcn/ui theme builder for styling**
 Rather than writing CSS Variables from scratch, I used the [shadcn/ui themes builder](https://ui.shadcn.com/themes) to create the base design.
-I based the color palette loosely of of the ViaMedia theme.
+I based the color palette loosely off of the ViaMedia theme.
 This significantly speeds up visual setup for me.
 
 **Axios over fetch**
-Interceptors are going to make it easier to attach the Authorization header globally and handle 401 response (auto-logout) in a central place instead of in every request.
+Interceptors make it easier to attach the Authorization header globally and handle 401 responses (auto-logout) in a central place instead of in every request.
+
+**Routing**
+Two main routes are set up: a `dashboard` route which serves as a basic landing page, and a `catalog` route where the core product browsing experience lives, paginated product grid, search, and filtering.
+Protected routes with a login screen are next on the list.
 
 _I'll add more decisions as I progress_
+
+---
+
+## Current Progress
+
+- Product retrieval and display on the catalog page is the primary focus so far. Pagination and search are wired up and working.
+- Category filtering is partially in place and being refined.
+- Protected routes and the login screen are the next major milestone.
+
+---
 
 ## What I'd improve on with more time
 
 - Add unit tests for the sagas and maybe key components
-- Add skeleton loaders instead of just a spinner.
-- Persist the search / filter / page state in URL so links are shareable
+- Persist the search / filter / page state in the URL so links are shareable
 
 ---
 
@@ -130,7 +153,7 @@ _I'll add more decisions as I progress_
 
 - DummyJSON doesn't persist POST / PUT / DELETE changes, the UI reflects mutations locally as documented
 - The "Add Product" button is hidden entirely when logged out, rather than showing it disabled
-- Categories are fetched once mount and cached in Redux
+- Categories are fetched once on mount and cached in Redux
 
 _I'll add more notes as I progress_
 

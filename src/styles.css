@@ -35,7 +35,7 @@
 }
 
 :root {
-	--radius: 0.5rem;
+	--radius: 0.3rem;
 	--background: #ffffff;
 	--foreground: #070707;
 	--card: #ffffff;
@@ -55,4 +55,106 @@
 	--border: #d4d4d4;
 	--input: #f0f0f0;
 	--ring: #fb143b;
+}
+
+@layer base {
+	body {
+		background-color: var(--color-background);
+		color: var(--color-foreground);
+		font-family: var(--font-sans);
+		-webkit-font-smoothing: antialiased;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4 {
+		font-family: var(--font-display);
+		letter-spacing: -0.02em;
+	}
+}
+
+@utility card-pop {
+	background: var(--background);
+	border: 1px solid var(--foreground);
+	border-radius: var(--radius);
+	transition: transform 150ms ease, box-shadow 150ms ease;
+
+	&:hover {
+		transform: translate(-3px, -3px);
+		box-shadow: var(--shadow-pop);
+	}
+}
+
+@utility chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+	padding: 0.2rem 0.55rem;
+	border: 1.5px solid var(--foreground);
+	border-radius: 0.3rem;
+	font-size: 0.72rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	background: var(--background);
+}
+
+@utility chip-primary {
+	background: var(--primary);
+	color: var(--primary-foreground);
+	border-color: var(--foreground);
+}
+
+@utility btn-pop {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	background: var(--primary);
+	color: var(--primary-foreground);
+	border: 2px solid var(--foreground);
+	border-radius: var(--radius);
+	padding: 0.6rem 1.1rem;
+	font-weight: 700;
+	box-shadow: var(--shadow-pop-sm);
+	transition: transform 120ms ease, box-shadow 120ms ease;
+
+	&:hover {
+		transform: translate(-2px, -2px);
+		box-shadow: var(--shadow-pop);
+		cursor: pointer;
+	}
+
+	&:active {
+		transform: translate(0, 0);
+		box-shadow: 0 0 0 0 var(--primary);
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+		transform: none;
+		box-shadow: var(--shadow-pop-sm);
+	}
+}
+
+@utility btn-outline-pop {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	background: var(--background);
+	color: var(--foreground);
+	border: 2px solid var(--foreground);
+	border-radius: var(--radius);
+	padding: 0.6rem 1.1rem;
+	font-weight: 700;
+	transition: background 120ms ease, color 120ms ease;
+
+	&:hover {
+		background: var(--primary);
+		color: var(--primary-foreground);
+		cursor: pointer;
+	}
 }

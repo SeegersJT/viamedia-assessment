@@ -1,18 +1,23 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import RootContainer from '@/containers/root/Root.container'
+import DashboardContainer from '@/containers/root/dashboard/Dashboard.container'
+import CatalogContainer from '@/containers/root/dashboard/catalog/Catalog.container'
+import Notification from '@/components/notification/Notification.component'
 
 export const AppRouter = () => (
 	<BrowserRouter>
 		<Routes>
 			<Route path={'/'} element={<Navigate to={'/dashboard'} replace />} />
 
-			<Route index element={<h1>NOTHING TO SEE HERE...</h1>} />
-
-			{/* THIS IS MY BASIC STRUCTURE OF THE ROUTES AND WILL ADD ROUTES AND COMPONENTS AS I GO ALONG */}
-			{/* <Route path="/dashboard" element={<RootContainer />}>
+			<Route path="/dashboard" element={<RootContainer />}>
 				<Route index element={<DashboardContainer />} />
-			</Route> */}
+
+				<Route path="catalog" element={<CatalogContainer />} />
+			</Route>
 
 			<Route path="*" element={<Navigate to={'/'} replace />} />
 		</Routes>
+
+		<Notification />
 	</BrowserRouter>
 )
