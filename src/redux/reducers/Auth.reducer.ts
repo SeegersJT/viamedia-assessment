@@ -16,16 +16,28 @@ const initialState: AuthStateWithLoading = {
 export const AuthReducer = (state = initialState, action: AuthAction): AuthStateWithLoading => {
 	switch (action.type) {
 		case AUTH_ACTIONS.SET_LOGIN_LOADING:
-			return { ...state, authenticationLoading: action.payload }
+			return {
+				...state,
+				authenticationLoading: action.payload,
+			}
 
 		case AUTH_ACTIONS.SET_USER_DATA:
-			return { ...state, userData: action.payload }
+			return {
+				...state,
+				userData: action.payload,
+			}
 
 		case AUTH_ACTIONS.SET_ACCESS_TOKEN:
-			return { ...state, accessToken: action.payload }
+			return {
+				...state,
+				accessToken: action.payload,
+			}
 
 		case AUTH_ACTIONS.SET_IS_AUTHENTICATED:
-			return { ...state, isAuthenticated: action.payload }
+			return {
+				...state,
+				isAuthenticated: action.payload,
+			}
 
 		default:
 			return state

@@ -4,9 +4,10 @@ interface HeaderProps {
 	isAuthenticated: boolean
 	user: UserItem | null
 	onGoToNavigateClick: (path: string) => void
+	onSignOutClick: () => void
 }
 
-function Header({ isAuthenticated, user, onGoToNavigateClick }: HeaderProps) {
+function Header({ isAuthenticated, user, onGoToNavigateClick, onSignOutClick }: HeaderProps) {
 	return (
 		<header className="sticky top-0 z-40 border-b-1 bg-background">
 			<div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
@@ -48,7 +49,7 @@ function Header({ isAuthenticated, user, onGoToNavigateClick }: HeaderProps) {
 								<span className="text-sm font-bold">{user.name}</span>
 							</span>
 							<button
-								onClick={() => {}}
+								onClick={onSignOutClick}
 								className="btn-outline-pop !py-1.5 !px-3 text-sm"
 							>
 								Sign out

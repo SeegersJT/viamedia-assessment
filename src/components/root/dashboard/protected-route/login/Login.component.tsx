@@ -30,7 +30,7 @@ function Login({
 				Use any DummyJSON user. Defaults are pre-filled below. Just hit sign in.
 			</p>
 
-			<form onSubmit={e => onSubmit(e)} className="card-pop mt-8 space-y-4 p-6">
+			<form onSubmit={onSubmit} className="card-pop mt-8 space-y-4 p-6">
 				<div>
 					<label className="text-xs font-bold uppercase tracking-wide">Username</label>
 					<input

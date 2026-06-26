@@ -45,8 +45,6 @@ function* handleLoginRequest(action: ReturnType<typeof requestLogin>) {
 		yield put(setUserData(userData))
 		yield put(setIsAuthenticated(true))
 
-		action.payload.navigate('/dashboard/catalog')
-
 		yield put(
 			addSystemNotification({
 				type: 'success',
@@ -70,6 +68,10 @@ function* handleLogoutRequest() {
 	yield put(setAccessToken(null))
 	yield put(setUserData(null))
 	yield put(setIsAuthenticated(false))
+
+	yield put(
+		addSystemNotification({ type: 'info', title: 'Auth', message: "You've been signed out" })
+	)
 }
 
 export function* authSaga() {

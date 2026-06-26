@@ -9,4 +9,5 @@ export interface AuthState {
 	userData: UserItem | null
 	accessToken: string | null
 	isAuthenticated: boolean
+	authenticationLoading: boolean
 }

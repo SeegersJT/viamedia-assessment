@@ -45,7 +45,7 @@ function MultiSelect<T extends string>({
 		<div ref={ref} className="relative">
 			<button
 				type="button"
-				onClick={() => setOpen(v => !v)}
+				onClick={() => setOpen(value => !value)}
 				aria-expanded={open}
 				aria-haspopup="listbox"
 				className="flex h-full w-full items-center justify-between gap-2 rounded-lg border-1 border-foreground bg-background px-4 py-3 text-sm font-bold shadow-[3px_3px_0_0_var(--primary)] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[4px_4px_0_0_var(--primary)] sm:w-64 hover:cursor-pointer"

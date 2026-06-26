@@ -3,8 +3,11 @@ import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { useAppSelector } from '@/hooks/useAppSelector'
 import {
 	requestCategoryData,
+	requestDeleteProduct,
+	requestProductById,
 	requestProductData,
 	requestProductsByCategory,
+	setProductById,
 } from '@/redux/actions/Product.action'
 import { useCallback, useEffect, useState } from 'react'
 import { DEFAULT_LIMIT, DEFAULT_PAGE, type PaginationState } from './Catalog.helper'
@@ -12,13 +15,21 @@ import { Utils } from '@/utils/Utils'
 import { useAppDebounce } from '@/hooks/useAppDebounce'
 import { useNavigate } from 'react-router-dom'
 import type { RootState } from '@/redux/types/Root.types'
+import ProductFormModalContainer from '../product/ProductFormModal.container'
 
 function CatalogContainer() {
 	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
 
-	const { productData, categoryData, totalProducts, productDataLoading, categoryDataLoading } =
-		useAppSelector((state: RootState) => state.product)
+	const {
+		productData,
+		categoryData,
+		totalProducts,
+		productDataLoading,
+		categoryDataLoading,
+		deletingProductId,
+	} = useAppSelector((state: RootState) => state.product)
+	const { isAuthenticated } = useAppSelector((state: RootState) => state.auth)
 
 	const [pagination, setPagination] = useState<PaginationState>({
 		page: DEFAULT_PAGE,
@@ -26,6 +37,7 @@ function CatalogContainer() {
 	})
 	const [search, setSearch] = useState('')
 	const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+	const [productFormModalOpen, setProductFormModalOpen] = useState(false)
 
 	const debouncedSearch = useAppDebounce(search, 400)
 
@@ -84,6 +96,20 @@ function CatalogContainer() {
 		navigate(path)
 	}
 
+	const handleOnProductFormOpenClick = (productId: number, open: boolean, clear: boolean) => {
+		setProductFormModalOpen(open)
+
+		if (clear) {
+			dispatch(setProductById(null))
+		} else {
+			dispatch(requestProductById(productId))
+		}
+	}
+
+	const handleOnRemoveClick = (productId: number) => {
+		dispatch(requestDeleteProduct(productId))
+	}
+
 	useEffect(() => {
 		setPagination(prev => ({ ...prev, page: DEFAULT_PAGE }))
 	}, [debouncedSearch])
@@ -97,20 +123,32 @@ function CatalogContainer() {
 	}, [fetchCategories])
 
 	return (
-		<Catalog
-			productData={productData}
-			categoryData={categoryData}
-			pagination={{ ...pagination, totalPages }}
-			search={search}
-			selectedCategories={selectedCategories}
-			productDataLoading={productDataLoading}
-			categoryDataLoading={categoryDataLoading}
-			onPageChange={handlePageChange}
-			onSearchChange={handleSearchChange}
-			onCategoryToggle={handleOnCategoryToggle}
-			onClearCategories={handleOnClearCategories}
-			onGoToNavigateClick={handleOnGoToNavigateClick}
-		/>
+		<>
+			<Catalog
+				productData={productData}
+				categoryData={categoryData}
+				pagination={{ ...pagination, totalPages }}
+				search={search}
+				selectedCategories={selectedCategories}
+				isAuthenticated={isAuthenticated}
+				productDataLoading={productDataLoading}
+				categoryDataLoading={categoryDataLoading}
+				deletingProductId={deletingProductId}
+				onPageChange={handlePageChange}
+				onSearchChange={handleSearchChange}
+				onCategoryToggle={handleOnCategoryToggle}
+				onClearCategories={handleOnClearCategories}
+				onGoToNavigateClick={handleOnGoToNavigateClick}
+				onProductFormOpenClick={handleOnProductFormOpenClick}
+				onRemoveClick={handleOnRemoveClick}
+			/>
+
+			{productFormModalOpen && (
+				<ProductFormModalContainer
+					onClose={() => handleOnProductFormOpenClick(0, false, true)}
+				/>
+			)}
+		</>
 	)
 }
 

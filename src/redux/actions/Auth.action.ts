@@ -13,9 +13,9 @@ export const AUTH_ACTIONS = {
 	REQUEST_LOGOUT: '[AUTH] - LOGOUT - REQUEST',
 } as const
 
-export const requestLogin = (username: string, password: string, navigate: NavigateFunction) => ({
+export const requestLogin = (username: string, password: string) => ({
 	type: AUTH_ACTIONS.REQUEST_LOGIN,
-	payload: { username, password, navigate },
+	payload: { username, password },
 })
 
 export const setLoginLoading = (loading: boolean) => ({

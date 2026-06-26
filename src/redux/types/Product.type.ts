@@ -29,4 +29,6 @@ export interface ProductState {
 	productDataLoading: boolean
 	categoryDataLoading: boolean
 	productByIdLoading: boolean
+	formSubmitLoading: boolean
+	deletingProductId: number | null
 }

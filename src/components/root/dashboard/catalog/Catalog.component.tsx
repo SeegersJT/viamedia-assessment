@@ -4,7 +4,7 @@ import Nothing from '@/components/nothing/Nothing.component'
 import Pagination from '@/components/pagination/Pagination.component'
 import ProductCard from '@/components/product-card/ProductCard.component'
 import type { ProductItem } from '@/redux/types/Product.type'
-import { Search, X } from 'lucide-react'
+import { Plus, Search, X } from 'lucide-react'
 
 interface CatalogProps {
 	productData: ProductItem[]
@@ -12,13 +12,17 @@ interface CatalogProps {
 	pagination: { page: number; limit: number; totalPages: number }
 	search: string
 	selectedCategories: string[]
+	isAuthenticated: boolean
 	productDataLoading: boolean
 	categoryDataLoading: boolean
+	deletingProductId: number | null
 	onPageChange: (page: number) => void
 	onSearchChange: (value: string) => void
 	onCategoryToggle: (category: string) => void
 	onClearCategories: () => void
 	onGoToNavigateClick: (path: string) => void
+	onProductFormOpenClick: (productId: number, open: boolean, clear: boolean) => void
+	onRemoveClick: (productId: number) => void
 }
 
 function Catalog({
@@ -27,13 +31,17 @@ function Catalog({
 	pagination,
 	search,
 	selectedCategories,
+	isAuthenticated,
 	productDataLoading,
 	categoryDataLoading,
+	deletingProductId,
 	onPageChange,
 	onSearchChange,
 	onCategoryToggle,
 	onClearCategories,
 	onGoToNavigateClick,
+	onProductFormOpenClick,
+	onRemoveClick,
 }: CatalogProps) {
 	const hasResults = productData && productData.length > 0
 
@@ -93,6 +101,15 @@ function Catalog({
 						Page {pagination.page} of {pagination.totalPages}
 					</p>
 				</div>
+				{isAuthenticated && (
+					<button
+						onClick={() => onProductFormOpenClick(0, true, true)}
+						className="btn-pop shrink-0"
+					>
+						<Plus className="h-4 w-4" />
+						<span className="hidden sm:inline">New product</span>
+					</button>
+				)}
 			</div>
 
 			{productDataLoading ? (
@@ -105,8 +122,11 @@ function Catalog({
 						<ProductCard
 							key={product.id}
 							product={product}
-							canManage={false}
+							canManage={isAuthenticated}
+							deletingProductId={deletingProductId}
 							onGoToNavigateClick={onGoToNavigateClick}
+							onEditClick={onProductFormOpenClick}
+							onRemoveClick={onRemoveClick}
 						/>
 					))}
 				</div>

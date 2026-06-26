@@ -7,6 +7,7 @@ import type { ProductItem } from '@/redux/types/Product.type'
 interface DashboardProps {
 	productData: ProductItem[]
 	totalProducts: number
+	isAuthenticated: boolean
 	productDataLoading: boolean
 	onGoToNavigateClick: (path: string) => void
 }
@@ -14,6 +15,7 @@ interface DashboardProps {
 function Dashboard({
 	productData,
 	totalProducts,
+	isAuthenticated,
 	productDataLoading,
 	onGoToNavigateClick,
 }: DashboardProps) {
@@ -39,12 +41,15 @@ function Dashboard({
 								Browse catalog
 								<ArrowRight className="h-4 w-4" />
 							</button>
-							<button
-								onClick={() => onGoToNavigateClick('/dashboard/login')}
-								className="btn-outline-pop text-base"
-							>
-								Sign in
-							</button>
+
+							{!isAuthenticated && (
+								<button
+									onClick={() => onGoToNavigateClick('/dashboard/login')}
+									className="btn-outline-pop text-base"
+								>
+									Sign in
+								</button>
+							)}
 						</div>
 						<dl className="mt-10 grid max-w-md grid-cols-3 gap-4">
 							{DashboardStatistics(totalProducts).map(stat => (

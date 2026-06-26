@@ -3,8 +3,13 @@ import type { AxiosResponse } from 'axios'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import {
 	PRODUCT_ACTIONS,
+	requestCreateProduct,
+	requestDeleteProduct,
+	requestUpdateProduct,
 	setCategoryData,
 	setCategoryDataLoading,
+	setDeletingProductId,
+	setFormSubmitLoading,
 	setProductById,
 	setProductByIdLoading,
 	setProductData,
@@ -15,6 +20,7 @@ import { productApi } from '@/utils/api/product.api'
 import type { ProductItem, ProductQueryParams } from '../types/Product.type'
 import { addSystemNotification } from '../actions/Notification.action'
 import axios from 'axios'
+import { axiosInstance } from '@/utils/api/setup/axios.instance'
 
 interface ProductResponse {
 	products: ProductItem[]
@@ -28,6 +34,12 @@ interface ProductsByCategoryParams {
 	limit: number
 	skip: number
 	search?: string
+}
+
+interface DummyJsonDeleteResponse {
+	id: number
+	isDeleted: boolean
+	deletedOn: string
 }
 
 function* handleProductDataRequest(action: PayloadAction<ProductQueryParams>) {
@@ -134,9 +146,116 @@ function* handleProductByIdRequest(action: PayloadAction<number>) {
 	}
 }
 
+function* handleCreateProduct(action: ReturnType<typeof requestCreateProduct>) {
+	try {
+		yield put(setFormSubmitLoading(true))
+
+		const { form, onSuccess } = action.payload
+
+		const response: AxiosResponse<ProductItem> = yield call(
+			[axiosInstance, axiosInstance.post],
+			'/products/add',
+			{
+				...form,
+				price: Number(form.price),
+				stock: Number(form.stock),
+			}
+		)
+
+		yield put(
+			addSystemNotification({
+				type: 'success',
+				title: 'Product',
+				message: `"${response.data.title}" created successfully.`,
+			})
+		)
+
+		onSuccess()
+	} catch (error: unknown) {
+		const message = axios.isAxiosError(error)
+			? (error.response?.data?.message ?? error.message)
+			: error instanceof Error
+				? error.message
+				: 'Unknown error'
+		yield put(addSystemNotification({ type: 'error', title: 'Product', message }))
+	} finally {
+		yield put(setFormSubmitLoading(false))
+	}
+}
+
+function* handleUpdateProduct(action: ReturnType<typeof requestUpdateProduct>) {
+	try {
+		yield put(setFormSubmitLoading(true))
+
+		const { id, form, onSuccess } = action.payload
+
+		const response: AxiosResponse<ProductItem> = yield call(
+			[axiosInstance, axiosInstance.patch],
+			`/products/${id}`,
+			{
+				...form,
+				price: Number(form.price),
+				stock: Number(form.stock),
+			}
+		)
+
+		yield put(
+			addSystemNotification({
+				type: 'success',
+				title: 'Product',
+				message: `"${response.data.title}" updated successfully.`,
+			})
+		)
+
+		onSuccess()
+	} catch (error: unknown) {
+		const message = axios.isAxiosError(error)
+			? (error.response?.data?.message ?? error.message)
+			: error instanceof Error
+				? error.message
+				: 'Unknown error'
+		yield put(addSystemNotification({ type: 'error', title: 'Product', message }))
+	} finally {
+		yield put(setFormSubmitLoading(false))
+	}
+}
+
+function* handleDeleteProduct(action: ReturnType<typeof requestDeleteProduct>) {
+	try {
+		yield put(setDeletingProductId(action.payload.id))
+
+		const { id } = action.payload
+
+		const response: AxiosResponse<DummyJsonDeleteResponse> = yield call(
+			[axiosInstance, axiosInstance.delete],
+			`/products/${id}`
+		)
+
+		yield put(
+			addSystemNotification({
+				type: 'success',
+				title: 'Product',
+				message: `Product #${response.data.id} deleted successfully.`,
+			})
+		)
+	} catch (error: unknown) {
+		const message = axios.isAxiosError(error)
+			? (error.response?.data?.message ?? error.message)
+			: error instanceof Error
+				? error.message
+				: 'Unknown error'
+		yield put(addSystemNotification({ type: 'error', title: 'Product', message }))
+	} finally {
+		yield put(setDeletingProductId(null))
+	}
+}
+
 export function* productSaga() {
 	yield takeLatest(PRODUCT_ACTIONS.REQUEST_PRODUCT_DATA, handleProductDataRequest)
 	yield takeLatest(PRODUCT_ACTIONS.REQUEST_CATEGORY_DATA, handleCategoryDataRequest)
 	yield takeLatest(PRODUCT_ACTIONS.REQUEST_PRODUCTS_BY_CATEGORY, handleProductsByCategoryRequest)
 	yield takeLatest(PRODUCT_ACTIONS.REQUEST_PRODUCT_BY_ID, handleProductByIdRequest)
+	yield takeLatest(PRODUCT_ACTIONS.REQUEST_CREATE_PRODUCT, handleCreateProduct)
+	yield takeLatest(PRODUCT_ACTIONS.REQUEST_UPDATE_PRODUCT, handleUpdateProduct)
+	yield takeLatest(PRODUCT_ACTIONS.REQUEST_DELETE_PRODUCT, handleDeleteProduct)
 }

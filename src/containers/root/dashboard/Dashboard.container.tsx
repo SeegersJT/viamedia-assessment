@@ -10,6 +10,7 @@ function DashboardContainer() {
 	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
 
+	const { isAuthenticated } = useAppSelector((state: RootState) => state.auth)
 	const { productData, totalProducts, productDataLoading } = useAppSelector(
 		(state: RootState) => state.product
 	)
@@ -27,6 +28,7 @@ function DashboardContainer() {
 			<Dashboard
 				productData={productData}
 				totalProducts={totalProducts}
+				isAuthenticated={isAuthenticated}
 				productDataLoading={productDataLoading}
 				onGoToNavigateClick={handleOnGoToNavigateClick}
 			/>

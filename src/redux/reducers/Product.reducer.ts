@@ -13,6 +13,8 @@ const initialState: ProductState = {
 	productDataLoading: false,
 	categoryDataLoading: false,
 	productByIdLoading: false,
+	formSubmitLoading: false,
+	deletingProductId: null,
 }
 
 export const ProductReducer = (state = initialState, action: ProductAction): ProductState => {
@@ -58,6 +60,15 @@ export const ProductReducer = (state = initialState, action: ProductAction): Pro
 				...state,
 				productById: action.payload,
 			}
+
+		case PRODUCT_ACTIONS.SET_FORM_SUBMIT_LOADING:
+			return {
+				...state,
+				formSubmitLoading: action.payload,
+			}
+
+		case PRODUCT_ACTIONS.SET_DELETING_PRODUCT_ID:
+			return { ...state, deletingProductId: action.payload }
 
 		default:
 			return state

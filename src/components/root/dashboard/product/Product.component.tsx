@@ -2,15 +2,13 @@ import Specification from '@/components/specification/Specification.component'
 import type { ProductItem } from '@/redux/types/Product.type'
 import { ArrowLeft, Package, Star, Tag } from 'lucide-react'
 
-function Product({
-	product,
-	finalPrice,
-	onGoToNavigateClick,
-}: {
+interface ProductProps {
 	product: ProductItem
 	finalPrice: number
 	onGoToNavigateClick: (path: string) => void
-}) {
+}
+
+function Product({ product, finalPrice, onGoToNavigateClick }: ProductProps) {
 	return (
 		<div className="mx-auto max-w-6xl px-4 py-8 sm:py-12">
 			<button

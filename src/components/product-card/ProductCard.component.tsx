@@ -1,17 +1,45 @@
 import type { ProductItem } from '@/redux/types/Product.type'
-import { Star } from 'lucide-react'
+import { Loader2, Pencil, Star, Trash2 } from 'lucide-react'
 
 interface ProductCardProps {
 	product: ProductItem
 	canManage: boolean
+	deletingProductId: number | null
 	onGoToNavigateClick: (path: string) => void
+	onEditClick: (productId: number, open: boolean, clear: boolean) => void
+	onRemoveClick: (productId: number) => void
 }
-function ProductCard({ product, canManage, onGoToNavigateClick }: ProductCardProps) {
+function ProductCard({
+	product,
+	canManage,
+	deletingProductId,
+	onGoToNavigateClick,
+	onEditClick,
+	onRemoveClick,
+}: ProductCardProps) {
 	return (
 		<div className="card-pop group relative flex flex-col overflow-hidden">
 			{canManage && (
 				<div className="absolute right-2 top-2 z-10 flex gap-1">
-					{/* ADD_EDIT_BUTTON_HERE */}
+					<button
+						onClick={() => onEditClick(product.id, true, false)}
+						aria-label="Edit"
+						className="grid h-8 w-8 place-items-center rounded-md border-1 border-foreground bg-background hover:bg-primary hover:text-primary-foreground hover:cursor-pointer"
+					>
+						<Pencil className="h-3.5 w-3.5" />
+					</button>
+					<button
+						onClick={() => onRemoveClick(product.id)}
+						disabled={false}
+						aria-label="Delete"
+						className="grid h-8 w-8 place-items-center rounded-md border-1 border-foreground bg-background hover:bg-primary hover:text-primary-foreground disabled:opacity-50 hover:cursor-pointer"
+					>
+						{deletingProductId === product.id ? (
+							<Loader2 className="h-3.5 w-3.5 animate-spin" />
+						) : (
+							<Trash2 className="h-3.5 w-3.5" />
+						)}
+					</button>
 				</div>
 			)}
 
