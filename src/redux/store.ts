@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, type Reducer } from '@reduxjs/toolkit'
 import createSagaMiddleware from 'redux-saga'
 import {
 	persistStore,
@@ -10,6 +10,7 @@ import {
 	PURGE,
 	REGISTER,
 	type PersistConfig,
+	type PersistedState,
 } from 'redux-persist'
 import storage from 'redux-persist/es/storage'
 import { RootReducer } from './reducers/Root.reducer'
@@ -29,12 +30,15 @@ const persistConfig: PersistConfig<RootState> = {
 	version: toVersionNumber(version),
 	storage,
 	whitelist: ['auth'],
-	migrate: (state: any) => {
+	migrate: (state: PersistedState) => {
 		return Promise.resolve(state)
 	},
 }
 
-const persistedReducer = persistReducer(persistConfig, RootReducer as any)
+const persistedReducer = persistReducer<RootState>(
+	persistConfig,
+	RootReducer as unknown as Reducer<RootState>
+)
 
 export const store = configureStore({
 	reducer: persistedReducer,

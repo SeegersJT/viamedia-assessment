@@ -4,10 +4,11 @@ interface FieldProps {
 	icon?: React.ReactNode
 	label: string
 	value?: string | number | null
+	children?: React.ReactNode
 }
 
-function Field({ icon, label, value }: FieldProps) {
-	if (!value) return null
+function Field({ icon, label, value, children }: FieldProps) {
+	if (!value && !children) return null
 
 	return (
 		<label className="block">
@@ -15,7 +16,7 @@ function Field({ icon, label, value }: FieldProps) {
 				{icon}
 				{label}
 			</span>
-			<div className="mt-1 text-sm text-muted-foreground">{value}</div>
+			<div className="mt-1 text-sm text-muted-foreground">{children ?? value}</div>
 		</label>
 	)
 }

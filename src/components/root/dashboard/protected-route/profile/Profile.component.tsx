@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { ArrowLeft, Building2, GraduationCap, Mail, MapPin, Phone, UserIcon } from 'lucide-react'
 import Field from '@/components/field/Field.component'
 import type { UserItem } from '@/redux/types/Auth.type'
