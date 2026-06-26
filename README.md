@@ -15,6 +15,7 @@ A product catalog built with Vite and the DummyJSON API. Built as part of a fron
 - View full product detail pages with image, pricing, specs, and stock status
 - Log in to get access to create, edit, or delete products
 - Create, edit, and delete products when authenticated
+- View your full profile after logging in
 - Logged-in user info displays in the header
 - Fully responsive on mobile and desktop
 
@@ -130,7 +131,7 @@ Interceptors make it easier to attach the Authorization header globally and hand
 
 **Routing**
 Two main routes are set up: a `dashboard` route which serves as a basic landing page, and a `catalog` route where the core product browsing experience lives, paginated product grid, search, and filtering.
-Protected routes guard the login screen and any authenticated actions - unauthenticated users are redirected to login, authenticated users are redirected away from it.
+Protected routes guard the login screen and any authenticated actions. Unauthenticated users are redirected to login, authenticated users are redirected away from it.
 
 _I'll add more decisions as I progress_
 
@@ -143,6 +144,7 @@ _I'll add more decisions as I progress_
 - Product detail page is complete. Selecting a product from the catalog navigates to a dedicated page showing the full product info including image, rating, pricing, discount, stock, and specifications, etc.
 - Protected routes and login are complete. Authentication is handled via DummyJSON's auth endpoint with the token stored and attached to subsequent requests via Axios interceptors.
 - Full CRUD is implemented and gated behind authentication. Create, edit, and delete operations are available to logged-in users, with mutations reflected locally as per DummyJSON behaviour.
+- Profile page is complete. Authenticated users can view their full profile pulled from `/auth/me`, including personal details, contact info, address, company, and physical stats. Session is rehydrated on page refresh via the stored access token.
 
 ---
 
@@ -159,6 +161,7 @@ _I'll add more decisions as I progress_
 - DummyJSON doesn't persist POST / PUT / DELETE changes, the UI reflects mutations locally as documented
 - The "Add Product" button is hidden entirely when logged out, rather than showing it disabled
 - Categories are fetched once on mount and cached in Redux
+- `/auth/me` is called on app boot when an access token is present to rehydrate the user session
 
 _I'll add more notes as I progress_
 
