@@ -4,19 +4,19 @@
 
 A product catalog built with Vite and the DummyJSON API. Built as part of a frontend developer assessment.
 
-**Version:** `0.5.0`
+**Version:** `0.6.0`
 **Live Demo:** `[I'LL REPLACE THIS WITH THE URL IN THE FUTURE]`
 
 ---
 
 ## What it does
 
-- Browse a paginated list of products with search and category filtering.
-- View full product detail pages
-- Log in to get access to create, edit or delete products.
-- Logged-in user info displays in the header.
-- Fully responsive on mobile and desktop
+- Browse a paginated list of products with search and category filtering
 - View full product detail pages with image, pricing, specs, and stock status
+- Log in to get access to create, edit, or delete products
+- Create, edit, and delete products when authenticated
+- Logged-in user info displays in the header
+- Fully responsive on mobile and desktop
 
 ---
 
@@ -130,7 +130,7 @@ Interceptors make it easier to attach the Authorization header globally and hand
 
 **Routing**
 Two main routes are set up: a `dashboard` route which serves as a basic landing page, and a `catalog` route where the core product browsing experience lives, paginated product grid, search, and filtering.
-Protected routes with a login screen are next on the list.
+Protected routes guard the login screen and any authenticated actions - unauthenticated users are redirected to login, authenticated users are redirected away from it.
 
 _I'll add more decisions as I progress_
 
@@ -141,7 +141,8 @@ _I'll add more decisions as I progress_
 - Product retrieval and display on the catalog page is the primary focus so far. Pagination and search are wired up and working.
 - Category filtering is partially in place and being refined.
 - Product detail page is complete. Selecting a product from the catalog navigates to a dedicated page showing the full product info including image, rating, pricing, discount, stock, and specifications, etc.
-- Protected routes and the login screen are the next major milestone.
+- Protected routes and login are complete. Authentication is handled via DummyJSON's auth endpoint with the token stored and attached to subsequent requests via Axios interceptors.
+- Full CRUD is implemented and gated behind authentication. Create, edit, and delete operations are available to logged-in users, with mutations reflected locally as per DummyJSON behaviour.
 
 ---
 
@@ -149,6 +150,7 @@ _I'll add more decisions as I progress_
 
 - Add unit tests for the sagas and maybe key components
 - Persist the search / filter / page state in the URL so links are shareable
+- Persist auth state across page refreshes via token storage
 
 ---
 
