@@ -6,7 +6,13 @@
 	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>ViaMedia - Assessment</title>
-  <script type="module" crossorigin src="/viamedia-assessment/assets/index-mXZx6Zkc.js"></script>
+	<script>
+		const redirect = new URLSearchParams(window.location.search).get('redirect');
+		if (redirect) {
+			window.history.replaceState(null, '', '/viamedia-assessment' + redirect);
+		}
+	</script>
+  <script type="module" crossorigin src="/viamedia-assessment/assets/index-D5ilDOqA.js"></script>
   <link rel="stylesheet" crossorigin href="/viamedia-assessment/assets/index-Bmx06dRp.css">
 </head>
 

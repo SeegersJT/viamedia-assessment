@@ -9,7 +9,7 @@ import ProtectedRouteContainer from '@/containers/root/dashboard/protected-route
 import ProfileContainer from '@/containers/root/dashboard/protected-route/profile/Profile.container'
 
 export const AppRouter = () => (
-	<BrowserRouter>
+	<BrowserRouter basename="/viamedia-assessment">
 		<Routes>
 			<Route path={'/'} element={<Navigate to={'/dashboard'} replace />} />
 
