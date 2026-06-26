@@ -1,3 +1,4 @@
+import { store } from '@/redux/store'
 import axios from 'axios'
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL
@@ -11,4 +12,12 @@ export const axiosInstance = axios.create({
 	headers: {
 		'Content-Type': 'application/json',
 	},
+})
+
+axiosInstance.interceptors.request.use(config => {
+	const token = store.getState().auth.accessToken
+	if (token) {
+		config.headers.Authorization = `Bearer ${token}`
+	}
+	return config
 })

@@ -6,6 +6,7 @@ import Notification from '@/components/notification/Notification.component'
 import ProductContainer from '@/containers/root/dashboard/product/Product.container'
 import LoginContainer from '@/containers/root/dashboard/protected-route/login/Login.container'
 import ProtectedRouteContainer from '@/containers/root/dashboard/protected-route/ProtectedRoute.container'
+import ProfileContainer from '@/containers/root/dashboard/protected-route/profile/Profile.container'
 
 export const AppRouter = () => (
 	<BrowserRouter>
@@ -20,7 +21,7 @@ export const AppRouter = () => (
 
 				<Route element={<ProtectedRouteContainer />}>
 					<Route path="login" element={<LoginContainer />} />
-					{/* <Route path="profile" element={<ProfileContainer />} /> */}
+					<Route path="profile" element={<ProfileContainer />} />
 				</Route>
 			</Route>
 

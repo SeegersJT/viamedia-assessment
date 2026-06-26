@@ -40,14 +40,17 @@ function Header({ isAuthenticated, user, onGoToNavigateClick, onSignOutClick }: 
 
 					{isAuthenticated && user ? (
 						<div className="flex items-center gap-2">
-							<span className="hidden items-center gap-2 rounded-md border-1 border-foreground px-2 py-1 sm:flex">
+							<button
+								onClick={() => onGoToNavigateClick('/dashboard/profile')}
+								className="btn-outline-pop !py-1.5 !px-3 text-sm"
+							>
 								<img
 									src={user?.avatar}
 									alt=""
 									className="h-6 w-6 rounded-full border border-foreground"
 								/>
 								<span className="text-sm font-bold">{user.name}</span>
-							</span>
+							</button>
 							<button
 								onClick={onSignOutClick}
 								className="btn-outline-pop !py-1.5 !px-3 text-sm"

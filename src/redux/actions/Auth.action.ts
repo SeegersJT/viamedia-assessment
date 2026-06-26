@@ -1,4 +1,3 @@
-import type { NavigateFunction } from 'react-router-dom'
 import type { UserItem } from '../types/Auth.type'
 
 export const AUTH_ACTIONS = {
@@ -11,6 +10,8 @@ export const AUTH_ACTIONS = {
 	SET_IS_AUTHENTICATED: '[AUTH] - IS AUTHENTICATED - SET',
 
 	REQUEST_LOGOUT: '[AUTH] - LOGOUT - REQUEST',
+
+	REQUEST_ME: '[AUTH] - ME - REQUEST',
 } as const
 
 export const requestLogin = (username: string, password: string) => ({
@@ -42,6 +43,10 @@ export const requestLogout = () => ({
 	type: AUTH_ACTIONS.REQUEST_LOGOUT,
 })
 
+export const requestMe = () => ({
+	type: AUTH_ACTIONS.REQUEST_ME,
+})
+
 export type AuthAction =
 	| ReturnType<typeof requestLogin>
 	| ReturnType<typeof setLoginLoading>
@@ -49,3 +54,4 @@ export type AuthAction =
 	| ReturnType<typeof setAccessToken>
 	| ReturnType<typeof setIsAuthenticated>
 	| ReturnType<typeof requestLogout>
+	| ReturnType<typeof requestMe>
