@@ -50,7 +50,7 @@ node -v # Should show the version: v24.18.0
 ### Install and Run
 
 ```bash
-git clone https://github.com/SeegersJT/viamedia-assessment.git # (Something like that - I'll update this once I commit)
+git clone https://github.com/SeegersJT/viamedia-assessment.git
 cd viamedia-assessment
 npm install
 cp .env.example .env
